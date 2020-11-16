@@ -1,7 +1,8 @@
 # react-webgame
 
 ## 프레임워크
- - React, React-dom
+ - React
+ - React-dom
     - npm i react react-dom
 ## 라이브러리
  - webpack
