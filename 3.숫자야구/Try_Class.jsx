@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 
 class Try extends PureComponent {
     render() {
-        const { tryInfo } = this.propsl
+        const { tryInfo } = this.props
         return (
             <li>
                 <div>{tryInfo.try}</div>
