@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import Ball from './Ball';
 
 
@@ -15,7 +15,8 @@ function getWinNumbers() {
 };
 
 const Lotto = () => {
-    const [winNumbers, setWinNumbers] = useState(getWinNumbers());
+    const lottoNumbers = useMemo(() => getWinNumbers(), [])
+    const [winNumbers, setWinNumbers] = useState(lottoNumbers);
     const [winBalls, setWinBalls] = useState([]);
     const [bonus, setBonus] = useState(null);
     const [redo, setRedo] = useState(false);
@@ -26,12 +27,12 @@ const Lotto = () => {
         for (let i = 0; i < winNumbers.length - 1; i++) {
             timeouts.current[i] = setTimeout(() => {
                 setWinBalls((prevBalls) => [...prevBalls, winNumbers[i]]);
-            }, (i + 1) * 500);
+            }, (i + 1) * 200);
         }
         timeouts.current[6] = setTimeout(() => {
             setBonus(winNumbers[6]);
             setRedo(true);
-        }, 3500);
+        }, 1400);
         return () => {
             timeouts.current.forEach((v) => {
                 clearTimeout(v);
@@ -40,14 +41,15 @@ const Lotto = () => {
     }, [timeouts.current]); // 빈 배열이면 componentDidMount와 동일
     // 배열에 요소가 있으면 ComponentDidMount랑 componentDidUpdate 둘 다 수행
 
-    const onClickRedo = () => {
+    const onClickRedo = useCallback(() => {
         console.log('onClickRedo');
+        console.log(winNumbers);
         setWinNumbers(getWinNumbers());
         setWinBalls([]);
         setBonus(null);
         setRedo(false);
         timeouts.current = [];
-    };
+    }, [winNumbers]);
 
     return (
         <>
@@ -56,7 +58,7 @@ const Lotto = () => {
                 {winBalls.map((v) => <Ball key={v} number={v} />)}
             </div>
             <div>보너스!</div>
-            {bonus && <Ball number={bonus} />}
+            {bonus && <Ball number={bonus} onClick={onClickRedo} />}
             {redo && <button onClick={onClickRedo}>한 번 더!</button>}
         </>
     );
