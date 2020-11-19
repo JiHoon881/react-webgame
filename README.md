@@ -11,6 +11,10 @@
     - npm i -D webpack-dev-server
  - babel
     - npm i -D @babel/core
+    - npm i -D @babel/plugin-proposal-class-properties
     - npm i -D @babel/preset-env
     - npm i -D @babel/preset-react
     - npm i -D babel-loader
+ - router
+   - npm i react-router
+   - npm i react-router-dom
