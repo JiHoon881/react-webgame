@@ -4,6 +4,7 @@
  - React
  - React-dom
     - npm i react react-dom
+
 ## 라이브러리
  - webpack
     - npm i -D webpack webpack-cli
@@ -18,3 +19,6 @@
  - router
    - npm i react-router
    - npm i react-router-dom
+
+### 설명
+React를 이용한 웹 게임 만들기 강의를 통해서 만든 프로젝트입니다.
